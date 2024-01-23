@@ -3,6 +3,8 @@ const app = express();
 
 const indexRouter = require("./routes");
 
+app.use(express.json());
+
 app.use("/", indexRouter);
 
 app.listen(8000, () => {
