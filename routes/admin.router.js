@@ -11,4 +11,13 @@ router.post("/", (req, res) => {
   console.log(req.query, req.body);
 });
 
+router.put("/", (req, res) => {
+  console.log(req.query, req.body);
+});
+router.patch("/", (req, res) => {
+  console.log(req.query, req.body);
+});
+router.delete("/", (req, res) => {
+  console.log(req.query, req.body);
+});
 module.exports = router;
