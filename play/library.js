@@ -1,3 +1,3 @@
 const numberFormatter = (number) => number.toLocaleString();
 
-module.exports = { getFormattedNumber: numberFormatter };
+module.exports = { numberFormatter };
