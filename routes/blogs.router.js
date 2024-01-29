@@ -1,27 +1,40 @@
-const router = require("express").Router(); //chaining of methods
+const express = require("express");
+const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ data: `hello form blogs` });
+router.get("/", (req, res, next) => {
+  res.json({ msg: "Welcome to blogs route" });
+  next(e);
 });
 
-router.post("/:id", (req, res, next) => {
+router.use((req, res, next) => {
+  req.sysRole = "admin";
+  next();
+});
+
+const checkRoles = (userRole, sysRole) => (req, res, next) => {
+  const result = sysRole.includes(userRole);
+  if (!result) {
+    throw new Error("Permission denied");
+  }
+  next();
+};
+
+router.get("/user", (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { name } = req.body;
-    if (!id || !name) throw "ID and Name is missing";
-    res.json({ msg: `Hello from blog id ${id} of blog name ${name} ` });
+    checkRoles("user", req.sysRole)(req, res, next);
+    res.json({ msg: "User Access " });
   } catch (e) {
     next(e);
   }
 });
-router.put("/", (req, res) => {
-  console.log(req.query, req.body);
-});
-router.patch("/", (req, res) => {
-  console.log(req.query, req.body);
-});
-router.delete("/", (req, res) => {
-  console.log(req.query, req.body);
+
+router.get("/admin", (req, res, next) => {
+  try {
+    checkRoles("admin", req.sysRole)(req, res, next);
+    res.json({ msg: "Welcome Admin!" });
+  } catch (e) {
+    next(e);
+  }
 });
 
 module.exports = router;
