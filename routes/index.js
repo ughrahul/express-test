@@ -8,10 +8,20 @@ const rolesRouter = require("./roles.router");
 const categoriesRouter = require("./categories.router");
 
 // Printing Hello World!
-router.get("/", (request, response) => {
-  response.json({ msg: "Hello World!" });
+//router.get("/", (req, res) => {
+//res.json({ msg: "Hello World!" });
+//});
+
+router.get("/", (req, res, next) => {
+  try {
+    console.log({ body: req.body });
+    res.json({ msg: "hello from route index" });
+  } catch (e) {
+    next(e);
+  }
 });
 
+//connecting all route pages
 router.use("/user", userRouter);
 router.use("/admin", adminRouter);
 router.use("/blogs", blogsRouter);

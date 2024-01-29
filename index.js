@@ -3,7 +3,16 @@ const app = express();
 
 const indexRouter = require("./routes");
 
+//effortlessly handle incoming requests containing JSON data
+//by automatically parsing and making it accessible in the program.(middleware)
 app.use(express.json());
+
+//using global middleware which takes request first to show the date
+app.use((req, res, next) => {
+  const date = new Date().toISOString();
+  req.body.date = date;
+  next();
+});
 
 app.use("/", indexRouter);
 
