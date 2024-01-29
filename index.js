@@ -22,5 +22,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(8000, () => {
-  console.log("Application is running...");
+  console.log("Application is running on port http://localhost:8000");
 });
