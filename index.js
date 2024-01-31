@@ -14,6 +14,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static("public"));
+
 app.use("/", indexRouter);
 
 app.use((err, req, res, next) => {
